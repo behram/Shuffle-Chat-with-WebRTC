@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <title>Shufflechat.me Random Chat</title>
+
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="V8-CTvNkIrKaMjxf8ODeEqjuYUbJ3_atc1liIv9XlBg" />
+  <meta name="description" content="WebRTC reference app">
+  {{ meta_viewport }}
+  <link rel="canonical" href="{{ room_link }}">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/default.css" />
+  <link rel="stylesheet" type="text/css" href="css/component.css" />
+  <script src="js/modernizr.custom.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+  <div id="videos">
+    <video id="mini-video" autoplay muted></video>
+    <canvas id="remote-canvas"></canvas>
+    <video id="remote-video" autoplay></video>
+    <video id="local-video" autoplay muted></video>
+  </div>
+
+  <a href="/getRoomHtml"> <button class="btn btn-6 btn-6c" id="shuffleButton"></button></a>
+
+  <footer>
+    <div id="sharing">
+      <div id="room-link">Waiting for someone to join this room: <a href="{{ room_link }}" target="_blank">{{ room_link }}</a></div>
+    </div>
+    <div id="info"></div>
+    <div id="status"></div>
+  </footer>
+
+  <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+  <script src="/js/stats.js"></script>
+  <script src="/js/signaling.js"></script>
+  <script src="/js/infobox.js"></script>
+  <script src="/js/sdputils.js"></script>
+  <script src="/js/util.js"></script>
+  <script src="/js/main.js"></script>
+  {{ include_vr_js }}
+  <script src="/js/adapter.js"></script>
+
+  <script type="text/javascript">
+    var params = {
+      errorMessages: {{ error_messages }},
+      channelToken: '{{ token }}',
+      roomId: '{{ room_key }}',
+      roomLink: '{{ room_link }}',
+      clientId: '{{ me }}',
+      isInitiator: {{ initiator }},
+      mediaConstraints: {{ media_constraints | safe }},
+      offerConstraints: {{ offer_constraints | safe }},
+      peerConnectionConfig: {{ pc_config | safe }},
+      peerConnectionConstraints: {{ pc_constraints | safe }},
+      turnRequestUrl: '{{ turn_url }}',
+      audioSendBitrate: '{{ asbr }}',
+      audioSendCodec: '{{ audio_send_codec }}',
+      audioRecvBitrate: '{{ arbr }}',
+      audioRecvCodec: '{{ audio_receive_codec }}',
+      opusMaxPbr: '{{ opusmaxpbr }}',
+      isStereoscopic: '{{ ssr }}',
+      isOpus: {{ opusfec }},
+      isOpusStereo: {{ stereo }},
+      videoSendBitrate: '{{ vsbr }}',
+      videoSendInitialBitrate: '{{ vsibr }}',
+      videoSendCodec: '{{ video_send_codec }}',
+      videoRecvBitrate: '{{ vrbr }}',
+      videoRecvCodec: '{{ video_receive_codec }}',
+    };
+    initialize();
+  </script>
+<script src="js/classie.js"></script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57527442-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
