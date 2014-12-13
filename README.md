@@ -1,70 +1,75 @@
-[![Build Status](https://travis-ci.org/GoogleChrome/webrtc.svg)](https://travis-ci.org/GoogleChrome/webrtc)
+Shuffle Chat with WebRTC
+==================================
+Overview
+------------
+Shuffle Chat App is an shuffle video chat app coded with Python and runs in Google App Engine. Project implemented from [WebRTC demos and samples](https://github.com/GoogleChrome/webrtc) and edited for shuffle video chat and api for Android App. Developed by [Deepkod Freelance Group](http://www.deepkod.com). Runs in [shufflechat.me](https://shufflechat.me)
 
-# WebRTC code samples #
+ - Demo Site => https://shufflechat.me
+ 
+ 
+Install
+------------
+For preparing we are installing some packages ( nodejs | npm | Google App Engine ).
 
-This is a repository for client-side WebRTC code samples and the [AppRTC](https://apprtc.appspot.com) video chat client.
+		sudo apt-get upgrade
+		sudo apt-get update
+		sudo apt-get install nodejs
+		sudo apt-get install unzip
+		sudo apt-get install apache2
+		curl https://npmjs.org/install.sh | sudo sh
+		cd ~
+		wget https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.17.zip
+		unzip google_appengine_1.9.17.zip
+		
+Clone repo
 
-Some of the samples use new browser features. They may only work in Chrome Canary and/or Firefox Beta, and may require flags to be set.
+	git clone https://github.com/deepkod/Shuffle-Chat-with-WebRTC.git
+	cd ./Shuffle-Chat-with-WebRTC
 
-All of the samples use [adapter.js](https://github.com/GoogleChrome/webrtc/blob/master/samples/web/js/adapter.js), a shim to insulate apps from spec changes and prefix differences. In fact, the standards and protocols used for WebRTC implementations are highly stable, and there are only a few prefixed names. For full interop information, see [webrtc.org/interop](http://www.webrtc.org/interop).
+Edit basic settings 
+	
+	nano ./samples/web/content/apprtc/apprtc.py
+and replace all shufflechat.me urls with localhost.
 
-NB: all samples that use `getUserMedia()` must be run from a server. Calling `getUserMedia()` from a file:// URL will result in a PermissionDeniedError NavigatorUserMediaError.  See [What are some chromium command-line flags relevant to WebRTC development/testing?](http://www.webrtc.org/chrome#TOC-What-are-some-chromium-command-line-flags-relevant-to-WebRTC-development-testing-) for relevant flags.
+Apache Proxy
+-----------------
+We must run program on https url because off permission problems ( [reason](https://support.google.com/chrome/answer/2693767?hl=en) ) . We will use apache2 as a local proxy server.
 
-For more information about WebRTC, we maintain a list of [WebRTC Resources](https://docs.google.com/document/d/1idl_NYQhllFEFqkGQOLv8KBK8M3EVzyvxnKkHl4SuM8/edit). If you've never worked with WebRTC, we recommend you start with the 2013 Google I/O [WebRTC presentation](http://www.youtube.com/watch?v=p2HzZkd2A40).
+This steps can be a little advanced if you got trouble contact with us.
+Email : deepkod@gmail.com
+Site Contact :  http://www.deepkod.com/#contact
+Or open a issue
 
-Patches and issues welcome!
+For use local ssl Certificate please apply this beautiful [article](https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04).
 
-## The demos ##
+For use apache as proxy bridge apply this crazy [article](https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension).
+Addition to article : We will use https because of that you must change /etc/apache2/sites-available/default-ssl.conf not /etc/apache2/sites-enabled/000-default.conf file.
+Proxy addresses in article use as below: 
 
-### getUserMedia ###
+	ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+Lets run our perfect app.
+	
+	cd ~
+	chmod +x local_run.sh
+	./local_run.sh
+And open with your browser https://localhost. If everything is works you must see an certification warning say ok i am trusting my app. ( On production you must get a real certificate ). Have Fun with Random Video Chat boy. 
+		
+Referances
+------------------
+ - https://shufflechat.me
+ - http://www.webrtc.org/
+ - https://github.com/GoogleChrome/webrtc
+ - http://www.html5rocks.com/en/tutorials/webrtc/basics/
+ - https://apprtc.appspot.com
+ - https://cloud.google.com/appengine/docs/python/
+ - https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04
+ - https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension
 
-[Basic getUserMedia demo](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/gum)
+Contact
+---------
+Email us : [deepkod@gmail.com](mailto:deepkod@gmail.com) | [deepkod@deepkod.com](mailto:deepkod@deepkod.com)
+Contact us : http://www.deepkod.com/#contact
+Or open an issue
 
-[getUserMedia + canvas](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/canvas)
-
-[getUserMedia + canvas + CSS Filters](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/filter)
-
-[getUserMedia with resolution constraints](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/resolution)
-
-[getUserMedia with camera/mic selection](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/source)
-
-[Audio-only getUserMedia output to local audio element](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/audio)
-
-[Audio-only getUserMedia displaying volume](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/volume)
-
-[Face tracking](https://googlechrome.github.io/webrtc/samples/web/content/getusermedia/face)
-
-### RTCPeerConnection ###
-
-[Basic peer connection](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/pc1)
-
-[Audio-only peer connection](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/audio)
-
-[Multiple peer connections at once](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/multiple)
-
-[Forward output of one peer connection into another](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/multiple-relay)
-
-[Munge SDP parameters](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/munge-sdp)
-
-[Use pranswer when setting up a peer connection](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/pr-answer)
-
-[Adjust constraints, view stats](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/constraints)
-
-[Display createOffer output](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/create-offer)
-
-[Use RTCDTMFSender](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/dtmf)
-
-[Display peer connection states](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/states)
-
-[ICE candidate gathering from STUN/TURN servers](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/trickle-ice)
-
-[Web Audio output as input to peer connection](https://googlechrome.github.io/webrtc/samples/web/content/peerconnection/webaudio-input)
-
-### RTCDataChannel ###
-
-[Data channels](https://googlechrome.github.io/webrtc/samples/web/content/datachannel)
-
-### Video chat ###
-
-[Complete video chat client (based on Google App Engine)](https://apprtc.appspot.com)
-
+We will wait for your pull requests all time bros :D Have Good time
